@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\KategoriArtikel;    
+use App\KategoriArtikel;
 use Illuminate\Http\Request;
 
 class KategoriArtikelAPIController extends Controller
@@ -14,10 +14,11 @@ class KategoriArtikelAPIController extends Controller
      */
     public function index()
     {
-        $kategoriArtikel=KategoriArtikel::all();
+        $kategoriArtikels=KategoriArtikel::all();
 
         return $kategoriArtikels;
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -42,7 +43,6 @@ class KategoriArtikelAPIController extends Controller
      */
     public function show($id)
     {
-
         $kategoriArtikel=KategoriArtikel::find($id);
 
         return $kategoriArtikel;

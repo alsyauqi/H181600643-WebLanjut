@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/soall', function () {
+    return view('welcome');
+})->name('soall');

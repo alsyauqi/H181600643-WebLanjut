@@ -1,4 +1,4 @@
-<?php
+composer dumpautoload<?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 

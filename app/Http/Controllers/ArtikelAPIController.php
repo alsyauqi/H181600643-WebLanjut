@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artikel;
+use App\User;
 use Illuminate\Http\Request;
 
 class ArtikelAPIController extends Controller
@@ -14,9 +15,14 @@ class ArtikelAPIController extends Controller
      */
     public function index()
     {
-        $artikels=Artikel::orderBy('id','desc')->get();
+        /*$artikels=Artikel::with(['kategoriArtikel','user'])->get();
 
-        return $artikels;
+        return $artikels;*/
+
+        $artikel=User::find(2)->artikels;
+
+        return $artikel;
+
     }
 
     /**
@@ -29,8 +35,7 @@ class ArtikelAPIController extends Controller
     {
         $input=$request->all();
 
-
-        $artikel=Artikel::all();
+        $artikel=Artikel::create($input);
 
         return $artikel;
     }
@@ -48,8 +53,6 @@ class ArtikelAPIController extends Controller
         return $artikel;
     }
 
-   
-
     /**
      * Update the specified resource in storage.
      *
@@ -61,12 +64,12 @@ class ArtikelAPIController extends Controller
     {
         $input=$request->all();
 
-
         $artikel=Artikel::find($id);
 
         if(empty($artikel)){
             return response()->json(['message'=>'data tidak ditemukan'],404);
         }
+
         $artikel->update($input);
 
         return response()->json($artikel);
@@ -89,5 +92,24 @@ class ArtikelAPIController extends Controller
         $artikel->delete();
 
         return response()->json(['message'=>'data telah dihapus']);
+    }
+
+    //Soal 1.
+    //Tampilkan Artikel yang dibuat oleh User dengan id 20
+    // dan Kategori artikel id 12
+    public function artikelUjiFunction(){
+        $artikels=Artikel::where('users_id',20)->where('kategori_artikel_id',16)->get();
+        return $artikels;
+    }
+
+    //Tampilkan Artikel yang di tulisa oleh orang yang membuat berita dengan id=10
+    public function artikelSoal2(){
+        $artikels=Artikel::whereHas('user',function ($query){
+            $query->whereHas('beritas',function ($query){
+                $query->where('id',10);
+            });
+        })->with('user','user.beritas')->get();
+
+        return $artikels;
     }
 }

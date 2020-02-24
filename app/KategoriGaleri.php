@@ -4,17 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KategoriArtikel extends Model
+class KategoriGaleri extends Model
 {
     //
-    protected $table='kategori_artikel';
+    protected $table='kategori_galeri';
 
     protected $fillable=[
         'nama','users_id'
     ];
 
-    public function artikels(){
-        return $this->hasMany(\App\Artikel::class,'kategori_artikel_id','id');
+    public function galeris(){
+        return $this->hasMany(\App\Galeri::class,'kategori_galeri_id','id');
     }
 
     public function user(){
